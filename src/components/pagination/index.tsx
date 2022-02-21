@@ -17,16 +17,22 @@ type dataPagination = {
   items?: dataItems[];
 };
 
-export function Pagination({ page = 0, total_pages = 0 }: dataPagination) {
-
+export function Pagination({
+  page = 0,
+  total_pages = 0,
+  total,
+  items,
+  per_page,
+}: dataPagination) {
   const numberOfButton = 5;
   const { pagination } = createPagination(page, numberOfButton, total_pages);
-  
+
   return (
     <div>
-      <button>Prev</button>
-      <button>pagination</button>
-      <button>Prox</button>
+      <button disabled={page === 1}>Prev</button>
+      {pagination &&
+        pagination.map((buttons) => <button key={buttons}>{buttons}</button>)}
+      <button disabled={page === total_pages}>Prox</button>
     </div>
   );
 }
