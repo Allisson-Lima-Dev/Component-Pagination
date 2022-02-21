@@ -14,7 +14,7 @@ export interface dataPagination {
   per_page?: number;
   total?: number;
   total_pages: number | undefined;
-  items?: dataItems[];
+  data?: dataItems[];
   getItem?: (page: number) => Promise<void>;
 }
 
@@ -22,19 +22,16 @@ export function Pagination({
   page = 0,
   total_pages = 0,
   total,
-  items,
+  data,
   per_page,
   getItem,
 }: dataPagination) {
   const numberOfButton = 5;
   const { pagination } = createPagination(page, numberOfButton, total_pages);
 
-
   return (
     <div>
-      <button disabled={page === 1}>
-        Prev
-      </button>
+      <button disabled={page === 1}>Prev</button>
       {pagination &&
         pagination.map((buttons) => (
           <button

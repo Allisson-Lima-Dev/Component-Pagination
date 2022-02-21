@@ -1,25 +1,24 @@
+/* eslint-disable spaced-comment */
 const createPagination = (
-  currentPage: number,
   numberOfButtons: number,
-  numberOfPages: number
+  numberOfPages: number,
+  currentPage: number
 ) => {
-  if (currentPage > numberOfPages || currentPage < 1) {
+  if (currentPage > numberOfPages || currentPage < 1)
     return {
       pagination: [],
-      // currentPage,
+      currentPage,
     };
-  }
-  const showButton = Array(numberOfPages)
+  //Aqui preencha o array com fill atraves do indice
+  const buttons = Array(numberOfPages)
     .fill(1)
-    .map((item, indice) => item + indice);
-
-  console.log(showButton);
-
+    .map((e, i) => e + i);
+  //Aqui verifica se o numberOfButtons é par
   const sideButtons =
     numberOfButtons % 2 === 0 ? numberOfButtons / 2 : (numberOfButtons - 1) / 2;
 
   const calculLeft = (rest = 0) => ({
-    array: showButton
+    array: buttons
       .slice(0, currentPage - 1)
       .reverse()
       .slice(0, sideButtons + rest)
@@ -30,18 +29,18 @@ const createPagination = (
   });
 
   const calculRight = (rest = 0) => ({
-    array: showButton.slice(currentPage).slice(0, currentPage + rest),
+    array: buttons.slice(currentPage).slice(0, sideButtons + rest),
     rest() {
       return sideButtons - calculRight().array.length;
     },
   });
 
-  const buttonLeft = calculLeft(calculRight().rest()).array;
-  const buttonRight = calculRight(calculLeft().rest()).array;
+  const leftButtons = calculLeft(calculRight().rest()).array;
+  const rightButtons = calculRight(calculLeft().rest()).array;
 
   return {
-    pagination: [...buttonLeft, currentPage, ...buttonRight],
-    // currentPage,
+    pagination: [...leftButtons, currentPage, ...rightButtons],
+    currentPage,
   };
 };
 
