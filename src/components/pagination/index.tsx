@@ -17,8 +17,11 @@ type dataPagination = {
   items?: dataItems[];
 };
 
-export function Pagination({}: dataPagination) {
-  const { pagination } = createPagination();
+export function Pagination({ page = 0, total_pages = 0 }: dataPagination) {
+
+  const numberOfButton = 5;
+  const { pagination } = createPagination(page, numberOfButton, total_pages);
+  
   return (
     <div>
       <button>Prev</button>

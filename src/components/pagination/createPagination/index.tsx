@@ -1,14 +1,8 @@
-type pagination = {
-  numberOfButtons: number;
-  numberOfPages: number;
-  currentPage: number;
-};
-
-const createPagination = ({
-  currentPage,
-  numberOfButtons,
-  numberOfPages,
-}: pagination) => {
+const createPagination = (
+  currentPage: number,
+  numberOfButtons: number,
+  numberOfPages: number
+) => {
   if (currentPage > numberOfPages || currentPage < 1) {
     return {
       pagination: [],
